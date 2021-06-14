@@ -70,6 +70,13 @@ In src/main/resources:
 | --- | --- |
 | application.properties | Quarkus and web server configuration |
 
+In config:
+
+| File | Contains |
+| --- | --- |
+| application.properties | Resource and service configuration, needs to be edited before build |
+| frontend.json | Frontend configuration, downloaded by the React frontend |
+
 ### Building
 
 To compile the TypeScipt and Java files and package the web server into a Jar
