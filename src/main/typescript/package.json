@@ -20,11 +20,15 @@
     "typescript": "^4.1.2",
     "web-vitals": "^2.0.1"
   },
+  "config": {
+    "resourceDir": "../../../target/classes/META-INF/resources"
+  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build --dest && mkdir -p ../resources/META-INF/resources && rsync -a build/* ../resources/META-INF/resources",
+    "build": "react-scripts build --dest && mkdir -p ${npm_package_config_resourceDir} && rsync -a build/* ${npm_package_config_resourceDir}",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clean": "rm -rf build"
   },
   "eslintConfig": {
     "extends": [
