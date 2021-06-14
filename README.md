@@ -20,8 +20,8 @@ downloads the [Excel spreadsheet](https://www.rki.de/DE/Content/InfAZ/N/Neuartig
 published daily by the RKI and retrieves the incidence data from there.
 
 I have considered using an API like https://api.corona-zahlen.org/. However,
-they do not provide the frozen incidence data for german states which are the
-ones I am interested in.
+they do not provide the frozen incidence data for german states which is the
+data I am interested in.
 
 The frontend is done with [React](https://reactjs.org/).
 
@@ -38,8 +38,8 @@ the next incidence level the incidences were below for these 3 days is reached.
 An incidence level change always occurs after two days.
 
 If the incidence is above the threshold for the third incidence level, the
-german [Infection Control Act §28b](https://www.gesetze-im-internet.de/ifsg/__28b.html)
-are used instead of state and disctrict policies.
+policies provided by the german [Infection Control Act §28b](https://www.gesetze-im-internet.de/ifsg/__28b.html)
+are used instead of state and district policies.
 
 The incidence level thresholds are the following:
 
@@ -61,7 +61,6 @@ In src/main/typescript:
 | public/index.html | Web app title and noscript message |
 | public/manifest.json | The web app manifest. See https://developers.google.com/web/fundamentals/web-app-manifest/ |
 | public/robots.txt | See http://www.robotstxt.org/ |
-| src/lang.json | Every message except the noscript message |
 | src/theme.scss | The theme styling |
 
 In src/main/resources:
@@ -74,17 +73,25 @@ In config:
 
 | File | Contains |
 | --- | --- |
-| application.properties | Resource and service configuration, needs to be edited before build |
+| application.properties | Resource and service configuration |
 | frontend.json | Frontend configuration, downloaded by the React frontend |
 
 ### Building
 
-To compile the TypeScipt and Java files and package the web server into a Jar
-file, use `mvn package`. Said JAR can directly be built into a native image by
-adding the `-Pnative` flag.
-
-Plase note that for building the jar file, you need a working JDK as well as
+Please note that for building the jar file, you need a working JDK as well as
 Maven.
+
+First provide the missing configuration in `config/application.properties`. Then
+compile the TypeScipt and Java files and package them into a Jar file using
+`mvn package`. Said Jar file can directly be built into a native image by adding
+the `-Pnative` flag to the Maven command.
+
+Maven is configured to make to tarballs - one containing the generated Jar files
+and their dependencies and the other containing the external configuration files
+provided in the `config directory`.
+
+For deployment, the `config` directory has to be in the current working
+directory of the web server in order for the configuration files to be used.
 
 ### Development
 
@@ -101,14 +108,14 @@ http://localhost:8080.
 To start the React frontend in development mode with live
 coding enabled, navigate to `src/main/typescript` and run npm start. The
 frontend can then be reached via http://localhost:3000. Please note that the
-frontend checks downloads the data from the quarkus web server, so running the
-quarkus server alongside the frontend server is not optional.
+frontend downloads the data from the quarkus web server, so running the quarkus
+server alongside the frontend server is required.
 
 ### Issues and Feature Requests
 
 Please use the GitHub issues tracker for issues. You can also post Feature
 Requests there, but keep in mind that I started this project mainly for the
-sports club I'm in. Thus I may only implement your Feature Requests when I feel
-like they are a good addition for said sports club to have.
+sports club I'm in, so I may only implement your Feature Requests when I feel
+like they are a good feature for said sports club to have.
 
 Feel free to fork this project if you want to.
