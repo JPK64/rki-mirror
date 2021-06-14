@@ -1,0 +1,12 @@
+@import "./theme";
+
+:export {
+	backgroundColor: $background-color;
+	contentColor: $content-color;
+	borderColor: $border-color;
+	descriptorColor: $descriptor-color;
+	foregroundColor: $foreground-color;
+
+	themeColor: $theme-color;
+	errorColor: $error-color;
+}

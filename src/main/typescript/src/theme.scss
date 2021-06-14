@@ -1,0 +1,22 @@
+$background-color: #111111;
+$content-color: #212121;
+$border-color: #313131;
+$descriptor-color: #515151;
+$foreground-color: #dedede;
+
+$theme-color: #89bfd5;
+$error-color: #d24d73;
+
+.box {
+	margin: 1vh;
+	margin-top: 2vh;
+	margin-bottom: 0vh;
+
+	background-color: $content-color;
+	border-radius: 1vh;
+	border: 0.2vh solid $border-color;
+}
+
+.box:last-child {
+	margin-bottom: 2vh
+}

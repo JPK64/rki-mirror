@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Launch Frontend",
+			"type": "shell",
+			"command": "cd ${workspaceRoot}/src/main/typescript && npm start",
+			"group": "none"
+		},
+		{
+			"label": "Launch Backend",
+			"type": "shell",
+			"command": "mvn quarkus:dev",
+			"group": "none"
+		}
+	]
+}

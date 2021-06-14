@@ -1,0 +1,12 @@
+.history.expanded .content {
+	div {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.graph canvas {
+		width: 100%;
+		height: 20vh
+	}
+}

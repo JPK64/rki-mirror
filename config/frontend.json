@@ -1,0 +1,21 @@
+{
+	"names": {
+		"state": "State",
+		"district": "District"
+	},
+	"descriptors": {
+		"incidence": "Incidence",
+		"daysBelow": "Days below threshold",
+		"daysAbove": "Days above threshold",
+		"lastUpdated": "Last updated",
+		"moreInfo": "More info"
+	},
+	"format": {
+		"date": "dd.MM",
+		"datetime": "dd.MM.yyyy, HH:mm"
+	},
+	"units": {
+		"days": "t"
+	},
+	"imprint": [ ]
+}

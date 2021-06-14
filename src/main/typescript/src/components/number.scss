@@ -1,0 +1,22 @@
+@import "../theme";
+
+.number {
+	font-weight: bold;
+}
+.number.arrow.equal::before {
+	content: "\25b6"
+}
+
+.number.greater {
+	color: $error-color;
+}
+.number.arrow.greater::before {
+	content: "\25b2";
+}
+
+.number.lesser {
+	color: $theme-color;
+}
+.number.arrow.lesser::before {
+	content: "\25bc";
+}

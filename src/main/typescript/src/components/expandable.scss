@@ -1,0 +1,50 @@
+@import "../theme";
+
+.expandable {
+	@extend .box;
+
+	display: flex;
+	flex-direction: column;
+
+	.header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		font-size: 5vh;
+	}
+
+	.content {
+		font-size: 3vh;
+	}
+}
+
+.expandable.collapsed {
+	padding: 2vh;
+	
+	.content {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
+
+.expandable.expanded {
+	.header {
+		border-bottom: 0.2vh solid $border-color;
+		padding: 2vh;
+	}
+
+	.content {
+		padding: 2vh;
+		display: flex;
+		flex-direction: column;
+
+		* {
+			margin-top: 0.5vh;
+		}
+
+		*:first-child {
+			margin-top: 0vh;
+		}
+	}
+}

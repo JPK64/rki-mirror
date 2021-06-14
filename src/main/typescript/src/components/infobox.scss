@@ -1,0 +1,12 @@
+.info.expanded .content {
+	.pair {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.imprint {
+		font-size: 2vh;
+		margin-top: 1.5vh
+	}
+}
