@@ -16,6 +16,8 @@ public class RedirectResource {
 			"redirect.spreadsheet", URI.class);
 	public static final URI githubURI = config.getValue("redirect.github",
 			URI.class);
+	public static final URI regulationsURI = config.getValue(
+			"redirect.regulations", URI.class);
 
 	@GET
 	@Path("spreadsheet")
@@ -27,5 +29,11 @@ public class RedirectResource {
 	@Path("github")
 	public Response redirectGitHub() throws InterruptedException {
 		return Response.temporaryRedirect(githubURI).build();
+	}
+
+	@GET
+	@Path("regulations")
+	public Response redirectRegulations() throws InterruptedException {
+		return Response.temporaryRedirect(regulationsURI).build();
 	}
 }

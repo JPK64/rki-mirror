@@ -15,7 +15,7 @@
 		"datetime": "dd.MM.yyyy, HH:mm"
 	},
 	"units": {
-		"days": "t"
+		"days": "d"
 	},
 	"imprint": [ ]
 }
