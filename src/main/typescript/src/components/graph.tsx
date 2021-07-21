@@ -21,7 +21,7 @@ interface Margins {
 
 interface GraphScaling {
 	descriptors: number;
-	step: number;
+	lines: number[];
 	x: number;
 	y: number;
 }
@@ -56,28 +56,24 @@ function prepareCanvas(ref: RefObject<HTMLCanvasElement>): Canvas {
 	};
 }
 
-function getStepSize(max: number): number {
-	if(max <= 40)
-		return 10;
-	if(max <= 100)
-		return 25;
-	if(max <= 200)
-		return 50;
-	if(max <= 400)
-		return 100;
-	return 200;
+function getLines(max: number): number[] {
+	const lines = [ 0, 10, 35, 50, 100 ];
+	const index = (lines.findIndex(value => value >= max) + 1) || lines.length;
+	return lines.slice(0, index);
 }
 
 function drawDescriptors(canvas: Canvas, margins: Margins,
-		scaling: GraphScaling, descriptors: string[], rows: number) {
+		scaling: GraphScaling, descriptors: string[]) {
 	canvas.context.font = `${ units.vh * 1.5 }px Roboto`;
 	canvas.context.fillStyle = theme.descriptorColor;
-	for(let i = 0; i < rows + 1; i ++) {
-		let value = i * scaling.step;
+
+	for(let i = 0; i < scaling.lines.length; i++) {
+		let value = scaling.lines[i];
 		let y = canvas.height - margins.bottom - scaling.y * value;
 		canvas.context.fillText(`${ value }`, 0, y + units.vh * 0.5,
 				margins.left);
 	}
+
 	for(let i = 0; i < descriptors.length; i++) {
 		let text = descriptors[descriptors.length - 1 - i];
 		let x = margins.left + i * scaling.descriptors;
@@ -87,12 +83,13 @@ function drawDescriptors(canvas: Canvas, margins: Margins,
 }
 
 function drawRows(context: CanvasRenderingContext2D, graph: Dimensions,
-		scaling: GraphScaling, rows: number) {
+		scaling: GraphScaling) {
 	context.lineWidth = 2;
 	context.strokeStyle = theme.descriptorColor
+
 	context.beginPath();
-	for(let i = 0; i < rows + 1; i++) {
-		let y = i * scaling.step * scaling.y;
+	for(let i = 0; i < scaling.lines.length + 1; i++) {
+		let y = scaling.y * scaling.lines[i];
 		context.moveTo(0, y);
 		context.lineTo(graph.width, y);
 	}
@@ -124,12 +121,12 @@ export default function Graph(props: GraphProps) {
 	useEffect(() => {
 		const canvas = prepareCanvas(ref);
 		const max = props.data.reduce((a, b) => a < b ? b : a, 0);
-		const step = getStepSize(max);
-		const rows = Math.ceil(max / step);
+		const lines = getLines(max);
 
-		let tmp = max;
+		let tmp = lines[lines.length - 1];
 		let maxPlaces = 0;
 		while(tmp) {
+			console.log(tmp / 10);
 			tmp = Math.floor(tmp / 10);
 			maxPlaces++;
 		}
@@ -148,17 +145,17 @@ export default function Graph(props: GraphProps) {
 
 		const scaling: GraphScaling = {
 			descriptors: graph.width / (props.descriptors.length - 1),
-			step: step,
+			lines: lines,
 			x: graph.width / (props.data.length - 1),
-			y: graph.height / (rows * step)
+			y: graph.height / lines[lines.length - 1]
 		};
 
-		drawDescriptors(canvas, margins, scaling, props.descriptors, rows);
+		drawDescriptors(canvas, margins, scaling, props.descriptors);
 		canvas.context.lineJoin = "round";
 		canvas.context.transform(1, 0, 0, -1, margins.left,
 				canvas.height - margins.bottom);
 			
-		drawRows(canvas.context, graph, scaling, rows);
+		drawRows(canvas.context, graph, scaling);
 		drawGraph(canvas.context, graph, scaling, props.data);
 	}, [ props ]);
 
