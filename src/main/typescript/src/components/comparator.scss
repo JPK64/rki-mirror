@@ -1,0 +1,29 @@
+@import "../theme";
+
+.comparator {
+	font-weight: bold;
+}
+.comparator.arrow.equal::before,
+.comparator.inverted-arrow.equal::before {
+	content: "\25b6"
+}
+
+.comparator.greater {
+	color: $error-color;
+}
+.comparator.invert.greater {
+	color: $theme-color;
+}
+.comparator.arrow.greater::before {
+	content: "\25b2";
+}
+
+.comparator.lesser {
+	color: $theme-color;
+}
+.comparator.invert.lesser {
+	color: $error-color;
+}
+.comparator.arrow.lesser::before {
+	content: "\25bc";
+}
