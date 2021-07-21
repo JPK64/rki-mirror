@@ -8,6 +8,7 @@ export interface Config {
 		daysBelow: string;
 		daysAbove: string;
 		lastUpdated: string;
+		lastChecked: string;
 		moreInfo: string;
 	};
 	format: {

@@ -8,6 +8,7 @@ const anchorRegex = /\[(.+?)\]\((.+?)\)/;
 
 export interface InfoBoxProps extends ExpandableProps {
 	lastUpdated: Date;
+	lastChecked: Date;
 }
 
 interface InfoBoxState extends ExpandableState {
@@ -15,6 +16,7 @@ interface InfoBoxState extends ExpandableState {
 	descriptors: {
 		moreInfo: string;
 		lastUpdated: string;
+		lastChecked: string;
 	};
 	imprint: string[];
 }
@@ -29,7 +31,8 @@ export default class InfoBox extends Expandable<InfoBoxProps, InfoBoxState> {
 			formatDate: DateFormatter.empty.format.bind(DateFormatter.empty),
 			descriptors: {
 				moreInfo: "",
-				lastUpdated: ""
+				lastUpdated: "",
+				lastChecked: ""
 			},
 			imprint: [ ]
 		});
@@ -54,15 +57,23 @@ export default class InfoBox extends Expandable<InfoBoxProps, InfoBoxState> {
 		return <div>{ this.state.descriptors.moreInfo }</div>;
 	}
 
+	protected formatDate(date: Date): ReactNode {
+		return <div>{ this.state.formatDate(date) }</div>;
+	}
+
 	protected contentCollapsed(): ReactNode {
-		return <div>{ this.state.formatDate(this.props.lastUpdated) }</div>;
+		return this.formatDate(this.props.lastUpdated);
 	}
 
 	protected contentExpanded(): ReactNode[] {
 		let result: ReactNode[] = [
 			<div className="pair">
 				<div>{ this.state.descriptors.lastUpdated }</div>
-				{ this.contentCollapsed() }
+				{ this.formatDate(this.props.lastUpdated) }
+			</div>,
+			<div className="pair">
+				<div>{ this.state.descriptors.lastChecked }</div>
+				{ this.formatDate(this.props.lastChecked) }
 			</div>
 		];
 		this.state.imprint

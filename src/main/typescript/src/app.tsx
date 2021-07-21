@@ -18,13 +18,13 @@ interface ResponseHistory {
 }
 
 interface ResponseData {
-	lastUpdated: string;
+	lastChecked: string;
 	district: ResponseHistory;
 	state: ResponseHistory;
 }
 
 export interface AppState {
-	lastUpdated: Date;
+	lastChecked: Date;
 	district: HistoryData;
 	state: HistoryData;
 	names: {
@@ -57,7 +57,7 @@ export default class App extends Component<{ }, AppState> {
 
 	private static parseResponse(response: ResponseData): Partial<AppState> {
 		return {
-			lastUpdated: new Date(response.lastUpdated),
+			lastChecked: new Date(response.lastChecked),
 			district: App.parseResponseHistory(response.district),
 			state: App.parseResponseHistory(response.state)
 		}
@@ -99,7 +99,7 @@ export default class App extends Component<{ }, AppState> {
 	}
 
 	render() {
-		if(!this.state.district || !this.state.state || !this.state.lastUpdated
+		if(!this.state.district || !this.state.state || !this.state.lastChecked
 				|| !this.state.names)
 			return <div id="app" />;
 		
@@ -111,7 +111,8 @@ export default class App extends Component<{ }, AppState> {
 			<History name={ this.state.names.state }
 					history={ this.state.state }
 					expand={ expand }/>
-			<InfoBox lastUpdated={ this.state.lastUpdated }
+			<InfoBox lastUpdated={ this.state.district.data[0].timestamp }
+					lastChecked={ this.state.lastChecked }
 					expand={ expand }/>
 		</div>;
 	}

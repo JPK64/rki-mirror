@@ -7,6 +7,7 @@
 		"incidence": "Incidence",
 		"daysBelow": "Days below threshold",
 		"daysAbove": "Days above threshold",
+		"lastChecked": "Last checked",
 		"lastUpdated": "Last updated",
 		"moreInfo": "More info"
 	},
