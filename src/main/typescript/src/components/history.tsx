@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Expandable, { ExpandableProps, ExpandableState } from "./expandable"
-import Number from "./number";
+import { Number } from "./comparator";
 import Graph from "./graph";
 import "./history.scss";
 import { DateFormatter } from "../util/format";
