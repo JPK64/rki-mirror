@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Config, fetchConfig } from "../util/config";
 import { DateFormatter } from "../util/format";
+import { OutdatedTracker } from "./comparator";
 import Expandable, { ExpandableProps, ExpandableState } from "./expandable"
 import "./infobox.scss"
 
@@ -58,22 +59,26 @@ export default class InfoBox extends Expandable<InfoBoxProps, InfoBoxState> {
 	}
 
 	protected formatDate(date: Date): ReactNode {
-		return <div>{ this.state.formatDate(date) }</div>;
+		return ;
 	}
 
 	protected contentCollapsed(): ReactNode {
-		return this.formatDate(this.props.lastUpdated);
+		return <OutdatedTracker compareTo={this.props.lastChecked}>
+			{ this.props.lastUpdated }
+		</OutdatedTracker>
 	}
 
 	protected contentExpanded(): ReactNode[] {
 		let result: ReactNode[] = [
 			<div className="pair">
 				<div>{ this.state.descriptors.lastUpdated }</div>
-				{ this.formatDate(this.props.lastUpdated) }
+				{ this.contentCollapsed() }
 			</div>,
 			<div className="pair">
 				<div>{ this.state.descriptors.lastChecked }</div>
-				{ this.formatDate(this.props.lastChecked) }
+				<div className="bold">
+					{ this.state.formatDate(this.props.lastChecked) }
+				</div>
 			</div>
 		];
 		this.state.imprint

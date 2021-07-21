@@ -13,6 +13,7 @@ export interface Config {
 	};
 	format: {
 		date: string;
+		fulldate: string;
 		datetime: string;
 	};
 	units: {

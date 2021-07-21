@@ -13,6 +13,7 @@
 	},
 	"format": {
 		"date": "dd.MM",
+		"fulldate": "dd.MM.yyyy",
 		"datetime": "dd.MM.yyyy, HH:mm"
 	},
 	"units": {
