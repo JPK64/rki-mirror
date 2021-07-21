@@ -12,7 +12,7 @@ public final class History {
 
 	@JsonProperty
 	protected int getLevel() {
-		if(getDaysAbove(2) >= 3)
+		if(getDaysAbove(2) >= level.dayLimit)
 			level = level.getHigher();
 		else if(getDaysBelow(2) >= 5)
 			level = level.getLower();
@@ -23,10 +23,9 @@ public final class History {
 	protected int getDaysAbove(int offset) {
 		int result = 0;
 		for(var incidence : data)
-			if(offset-- > 0) {
+			if(offset-- > 0)
 				offset--;
-				continue;
-			} else if(incidence.incidence >= level.max)
+			else if(incidence.incidence >= level.max)
 				result++;
 			else
 				break;
@@ -37,13 +36,11 @@ public final class History {
 	protected int getDaysBelow(int offset) {
 		int result = 0;
 		for(var incidence : data)
-			if(offset > 0) {
+			if(offset > 0)
 				offset--;
-				continue;
-			} else if(incidence.incidence < level.min) {
-				if(incidence.isWorkday())
-					result++;
-			} else
+			else if(incidence.incidence < level.min)
+				result++;
+			else
 				break;
 		return result;
 	}

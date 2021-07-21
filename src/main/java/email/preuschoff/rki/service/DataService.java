@@ -54,9 +54,9 @@ public final class DataService implements Runnable {
 	public DataService() {
 		stop = false;
 		data = new Data();
-		data.lastUpdated = Instant.MIN;
-		data.state.level = IncidenceLevel.values()[stateLevelInitial - 1];
-		data.district.level = IncidenceLevel.values()[districtLevelInitial - 1];
+		data.lastChecked = Instant.MIN;
+		data.state.level = IncidenceLevel.values()[stateLevelInitial];
+		data.district.level = IncidenceLevel.values()[districtLevelInitial];
 	}
 
 	private TreeSet<Incidence> parseHistory(Sheet sheet, Object id, int dateRow) {
@@ -105,7 +105,7 @@ public final class DataService implements Runnable {
 			var state = parseHistory(workbook.getSheet(stateSheet), stateId, 2);
 
 			synchronized(data) {
-				data.lastUpdated = Instant.now();
+				data.lastChecked = Instant.now();
 				data.district.data = district;
 				data.state.data = state;
 				data.notifyAll();
