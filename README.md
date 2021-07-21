@@ -88,10 +88,16 @@ the `-Pnative` flag to the Maven command.
 
 Maven is configured to make to tarballs - one containing the generated Jar files
 and their dependencies and the other containing the external configuration files
-provided in the `config directory`.
+provided in the `config` directory.
 
-For deployment, the `config` directory has to be in the current working
-directory of the web server in order for the configuration files to be used.
+### Deployment
+
+The tarball containing the Jar files contains everything needed to run the web
+server with a JVM. The native image is a static executable and can be executed
+directly.
+
+The `config` directory has to be in the current working directory of the web
+server in order for the configuration files to be used.
 
 ### Development
 
