@@ -32,10 +32,11 @@ RKI. The lower the incidences, the lower the incidence level, resulting in less
 strict lockdown policies.
 
 Each incidence level has a threshold. If the corona incidences are below that
-threshold for 5 consecutive workdays, the incidence level is reached. If the
-incidences are above that threshold for 3 consecutive days (including holidays),
-the next incidence level the incidences were below for these 3 days is reached.
-An incidence level change always occurs after two days.
+threshold for 5 consecutive days, the incidence level is reached. If the
+incidences are above that threshold for 3 consecutive days (or 8 consecutive
+days for incidence level 0), the next incidence level the incidences were below
+for these 3 days is reached. An incidence level change always occurs after two
+days.
 
 If the incidence is above the threshold for the third incidence level, the
 policies provided by the german [Infection Control Act §28b](https://www.gesetze-im-internet.de/ifsg/__28b.html)
@@ -45,6 +46,7 @@ The incidence level thresholds are the following:
 
 | Incidence Level | Threshold |
 | --- | --- |
+| 0 | 10 |
 | 1 | 35 |
 | 2 | 50 |
 | 3 | 100 |
@@ -76,19 +78,35 @@ In config:
 | application.properties | Resource and service configuration |
 | frontend.json | Frontend configuration, downloaded by the React frontend |
 
+#### Changing Ports, Disabling SSL
+
+When deploying the web server, the production build will use SSL by default. It
+will also redirect insecure HTTP requests on port `80` to secure HTTPS on port
+`443`. The web server will attempt to find the SSL certificate files `web.crt`
+and `web.key` in it's current working directory.
+
+In order to change any of this stuff, edit
+`src/main/resources/application.properties` or override the properties you want
+to change in `config/application.properties`.
+
+I would advise against this as SSL certificates are easy to get. If you have SSH
+access to your web server or if your web provider supports it, you can even use
+[Let's Encrypt](https://letsencrypt.org/getting-started/) to generate SSL
+certificates for free. There is no real reason not to use SSL.
+
 ### Building
 
 Please note that for building the jar file, you need a working JDK as well as
 Maven.
 
-First provide the missing configuration in `config/application.properties`. Then
+First provide the missing properties in `config/application.properties`. Then
 compile the TypeScipt and Java files and package them into a Jar file using
 `mvn package`. Said Jar file can directly be built into a native image by adding
 the `-Pnative` flag to the Maven command.
 
-Maven is configured to make to tarballs - one containing the generated Jar files
-and their dependencies and the other containing the external configuration files
-provided in the `config` directory.
+Maven is also configured to make to tarballs - one containing the generated Jar
+files and their dependencies and the other containing the external configuration
+files provided in the `config` directory.
 
 ### Deployment
 
@@ -97,7 +115,7 @@ server with a JVM. The native image is a static executable and can be executed
 directly.
 
 The `config` directory has to be in the current working directory of the web
-server in order for the configuration files to be used.
+server in order for the configuration files to be found by the web server.
 
 ### Development
 
@@ -119,9 +137,9 @@ server alongside the frontend server is required.
 
 ### Issues and Feature Requests
 
-Please use the GitHub issues tracker for issues. You can also post Feature
-Requests there, but keep in mind that I started this project mainly for the
-sports club I'm in, so I may only implement your Feature Requests when I feel
+Please use the GitHub issues tracker for issues. You can also post feature
+requests there, but keep in mind that I started this project mainly for the
+sports club I'm in, so I may only implement your feature requests when I feel
 like they are a good feature for said sports club to have.
 
-Feel free to fork this project if you want to.
+Feel free to fork this project if any of your feature requests don't make it in!
