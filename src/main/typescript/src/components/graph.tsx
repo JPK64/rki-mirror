@@ -162,9 +162,7 @@ export default function Graph(props: GraphProps) {
 		drawGraph(canvas.context, graph, scaling, props.data);
 	}, [ props ]);
 
-	return (
-		<div className="graph">
-			<canvas ref={ ref } />
-		</div>
-	);
+	return <div className="graph">
+		<canvas ref={ ref } />
+	</div>;
 }

@@ -50,15 +50,13 @@ export default abstract class Expandable<
 		if(this.props.className)
 			classes = `${ this.props.className } ${ classes }`;
 	
-		return (
-			<div className={ classes } onClick={ this.expand.bind(this) }>
-				<div className="header">
-					{ this.header() }
-				</div>
-				<div className="content">
-					{ this.content() }
-				</div>
+		return <div className={ classes } onClick={ this.expand.bind(this) }>
+			<div className="header">
+				{ this.header() }
 			</div>
-		);
+			<div className="content">
+				{ this.content() }
+			</div>
+		</div>;
 	}
 }
